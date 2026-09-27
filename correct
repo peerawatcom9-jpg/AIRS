@@ -1,0 +1,127 @@
+-- ========================================================
+-- A PEERAWAT — ธีมดำ-เขียว | ลากได้ | เปิดปิดได้
+-- ========================================================
+
+local UIS = game:GetService("UserInputService")
+local Tween = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local LP = Players.LocalPlayer
+
+-- ลบเก่า
+if CoreGui:FindFirstChild("PEERAWAT_GREEN_HUB") then
+    CoreGui.PEERAWAT_GREEN_HUB:Destroy()
+end
+
+-- สร้าง GUI หลัก
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "PEERAWAT_GREEN_HUB"
+ScreenGui.Parent = CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- ===== หน้าต่างหลัก =====
+local MainWindow = Instance.new("Frame")
+MainWindow.Name = "MainWindow"
+MainWindow.Size = UDim2.new(0, 280, 0, 420)
+MainWindow.Position = UDim2.new(0.05, 0, 0.1, 0)
+MainWindow.BackgroundColor3 = Color3.fromHex("#0F1F17")
+MainWindow.BorderSizePixel = 2
+MainWindow.BorderColor3 = Color3.fromHex("#00FF88")
+MainWindow.CornerRadius = UDim.new(0, 10)
+MainWindow.Active = true
+MainWindow.Draggable = true -- ✅ ลากเลื่อนได้
+MainWindow.Parent = ScreenGui
+
+-- ===== แถบหัว =====
+local TitleBar = Instance.new("Frame")
+TitleBar.Name = "TitleBar"
+TitleBar.Size = UDim2.new(1, 0, 0, 40)
+TitleBar.BackgroundColor3 = Color3.fromHex("#1A3325")
+TitleBar.CornerRadius = UDim.new(0, 10)
+TitleBar.Parent = MainWindow
+
+local TitleText = Instance.new("TextLabel")
+TitleText.Size = UDim2.new(1, -50, 1, 0)
+TitleText.Position = UDim2.new(0, 10, 0, 0)
+TitleText.BackgroundTransparency = 1
+TitleText.Text = "🔥 PEERAWAT HUB"
+TitleText.TextColor3 = Color3.fromHex("#00FF88")
+TitleText.Font = Enum.Font.GothamBold
+TitleText.TextSize = 16
+TitleText.TextXAlignment = Enum.TextXAlignment.Left
+TitleText.Parent = TitleBar
+
+-- ===== ปุ่มปิด/เปิด =====
+local ToggleBtn = Instance.new("TextButton")
+ToggleBtn.Name = "ToggleBtn"
+ToggleBtn.Size = UDim2.new(0, 35, 0, 30)
+ToggleBtn.Position = UDim2.new(1, -45, 0, 5)
+ToggleBtn.BackgroundColor3 = Color3.fromHex("#00AA55")
+ToggleBtn.CornerRadius = UDim.new(0, 6)
+ToggleBtn.Text = "−"
+ToggleBtn.TextColor3 = Color3.fromHex("#FFFFFF")
+ToggleBtn.Font = Enum.Font.GothamBold
+ToggleBtn.TextSize = 20
+ToggleBtn.Parent = TitleBar
+
+-- ===== รูปปก =====
+local LogoContainer = Instance.new("Frame")
+LogoContainer.Name = "LogoContainer"
+LogoContainer.Size = UDim2.new(1, -20, 0, 100)
+LogoContainer.Position = UDim2.new(0, 10, 0, 50)
+LogoContainer.BackgroundColor3 = Color3.fromHex("#152B20")
+LogoContainer.BorderSizePixel = 1
+LogoContainer.BorderColor3 = Color3.fromHex("#00FF88")
+LogoContainer.CornerRadius = UDim.new(0, 8)
+LogoContainer.Active = true
+LogoContainer.Draggable = true -- ✅ รูปปกเลื่อนได้
+LogoContainer.Parent = MainWindow
+
+local LogoImage = Instance.new("ImageLabel")
+LogoImage.Name = "LogoImage"
+LogoImage.Size = UDim2.new(1, -10, 1, -10)
+LogoImage.Position = UDim2.new(0, 5, 0, 5)
+LogoImage.BackgroundTransparency = 1
+LogoImage.Image = "rbxassetid://15639133598" -- 🔄 เปลี่ยนไอดีรูปตรงนี้ได้เลย
+LogoImage.ScaleType = Enum.ScaleType.Fit
+LogoImage.Parent = LogoContainer
+
+-- ===== พื้นที่เนื้อหา =====
+local ContentFrame = Instance.new("Frame")
+ContentFrame.Name = "ContentFrame"
+ContentFrame.Size = UDim2.new(1, -20, 1, -170)
+ContentFrame.Position = UDim2.new(0, 10, 0, 160)
+ContentFrame.BackgroundTransparency = 1
+ContentFrame.Parent = MainWindow
+
+local InfoLabel = Instance.new("TextLabel")
+InfoLabel.Size = UDim2.new(1, 0, 0, 30)
+InfoLabel.Position = UDim2.new(0, 0, 0, 0)
+InfoLabel.BackgroundTransparency = 1
+InfoLabel.Text = "✅ พร้อมใช้งาน | ลากได้ทุกส่วน"
+InfoLabel.TextColor3 = Color3.fromHex("#88FFBB")
+InfoLabel.Font = Enum.Font.Gotham
+InfoLabel.TextSize = 14
+InfoLabel.Parent = ContentFrame
+
+-- ===== ฟังก์ชันเปิด-ปิด =====
+local isOpen = true
+ToggleBtn.MouseButton1Click:Connect(function()
+    isOpen = not isOpen
+    MainWindow.Visible = isOpen
+    ToggleBtn.Text = isOpen and "−" or "+"
+    ToggleBtn.BackgroundColor3 = isOpen and Color3.fromHex("#00AA55") or Color3.fromHex("#555555")
+end)
+
+-- ===== ข้อความล่าง =====
+local Footer = Instance.new("TextLabel")
+Footer.Size = UDim2.new(1, -20, 0, 25)
+Footer.Position = UDim2.new(0, 10, 1, -35)
+Footer.BackgroundTransparency = 1
+Footer.Text = "💚 PEERAWAT — ธีมดำเขียว"
+Footer.TextColor3 = Color3.fromHex("#00FF88")
+Footer.Font = Enum.Font.Gotham
+Footer.TextSize = 12
+Footer.Parent = MainWindow
+
+print("✅ PEERAWAT HUB โหลดเสร็จ! ลากหน้าต่างและรูปปกได้เลย")
